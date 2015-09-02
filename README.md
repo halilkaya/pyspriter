@@ -7,7 +7,7 @@ Command line sprite generator module for Python
 ...or clone the repository.
 
 ### Usage
-```
+```python
 from pyspriter import Sprite
 sprite = Sprite("images/", "png", "transparent", "right")
 output = sprite.generate()
