@@ -1,4 +1,5 @@
 # pyspriter
+![travis](https://travis-ci.org/halilkaya/pyspriter.svg?branch=master)
 Command line sprite generator module for Python
 
 ### Download
