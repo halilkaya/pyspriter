@@ -68,19 +68,27 @@ class Sprite:
 		"""
 		Generates the sprite with given images
 		"""
-		left = 0
-		d = self.direction
-		b,f,i = self._loop_values()
-		for i in range(b, f, i):
-			img = Image.open(self.folder + str(i) + '.' + self.extension)
-			x, y = img.size
-			if d == 'right' or d == 'left':
-				self.sprite.paste(img, (left, 0))
-				left += x
-			elif d == 'up' or d == 'down':
-				self.sprite.paste(img, (0, left))
-				left += y
+		try:
+			left = 0
+			d = self.direction
+			b,f,i = self._loop_values()
+			for i in range(b, f, i):
+				img = Image.open(self.folder + str(i) + '.' + self.extension)
+				x, y = img.size
+				if d == 'right' or d == 'left':
+					self.sprite.paste(img, (left, 0))
+					left += x
+				elif d == 'up' or d == 'down':
+					self.sprite.paste(img, (0, left))
+					left += y
+		except Exception as e:
+			return None
 		return self.sprite
+
+	def check_output(self, output):
+		if output:
+			return True
+		return False
 
 	def _create(self):
 		self.sprite = Image.new("RGBA", self._size())
