@@ -92,3 +92,6 @@ class Sprite:
 
 	def _create(self):
 		self.sprite = Image.new("RGBA", self._size())
+
+	def ping(self):
+		return True
