@@ -25,7 +25,8 @@ Sprite(folder, extension, background, direction)
 
 **background:** Background color of sprite.
 
-**direction:** Sprite direction. (It's linear) ```right, left, up or down```
+**direction:** Sprite direction. (It's linear) ```square, right, left, up or down```
+
 
 ### Notes
   - This module generates sprite with the image names. Names must be like ```1.png, 2.png, 3.png, ...```.
