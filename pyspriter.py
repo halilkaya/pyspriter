@@ -74,9 +74,9 @@ class Sprite:
                 height += y
                 if x > width:
                     width = x
-                if maxWidth >= width:
-                    width = maxWidth
-                    height += maxY
+        if maxWidth >= width:
+            width = maxWidth
+            height += maxY
         return width, height
 
     def generate(self):
@@ -85,7 +85,8 @@ class Sprite:
         """
         try:
             left = 0
-                        lefty = 0
+            lefty = 0
+
             d = self.direction
             b,f,i = self._loop_values()
             for i in range(b, f, i):
