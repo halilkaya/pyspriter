@@ -38,7 +38,7 @@ class Sprite:
         """
         d = self.direction
         c = self.count
-        if d == 'right' or d == 'down':
+        if d == 'right' or d == 'down' or d == 'square':
             return 1, c+1, 1
         if d == 'left' or d == 'up':
             return c, 0, -1
@@ -51,10 +51,22 @@ class Sprite:
         height = 0
         d = self.direction
         b,f,i = self._loop_values()
+        maxWidth = 0
+        maxY = 0
         for i in range(b, f, i):
             img = Image.open(self.folder + str(i) + '.' + self.extension)
             x, y = img.size
-            if d == 'right' or d == 'left':
+            if d == 'square':
+                width += x
+                if width > maxWidth:
+                    maxWidth = width
+                if y > maxY:
+                    maxY = y
+                if i % self._isqrt(self.count) == 0:
+                    width = 0
+                    height += maxY
+                    maxY = 0
+            elif d == 'right' or d == 'left':
                 width += x
                 if y > height:
                     height = y
@@ -62,6 +74,9 @@ class Sprite:
                 height += y
                 if x > width:
                     width = x
+        if maxWidth >= width:
+            width = maxWidth
+            height += maxY
         return width, height
 
     def generate(self):
@@ -70,12 +85,20 @@ class Sprite:
         """
         try:
             left = 0
+            lefty = 0
+
             d = self.direction
             b,f,i = self._loop_values()
             for i in range(b, f, i):
                 img = Image.open(self.folder + str(i) + '.' + self.extension)
                 x, y = img.size
-                if d == 'right' or d == 'left':
+                if d == 'square':
+                    self.sprite.paste(img, (left, lefty))
+                    left += x
+                    if left >= self._size()[0]:
+                        left = 0
+                        lefty += y
+                elif d == 'right' or d == 'left':
                     self.sprite.paste(img, (left, 0))
                     left += x
                 elif d == 'up' or d == 'down':
@@ -92,3 +115,11 @@ class Sprite:
 
     def _create(self):
         self.sprite = Image.new("RGBA", self._size())
+
+    def _isqrt(self, n):
+        x = n
+        y = (x + 1) // 2
+        while y < x:
+            x = y
+            y = (x + n //x) //2
+        return x
